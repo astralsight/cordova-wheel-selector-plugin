@@ -37,22 +37,37 @@ typedef NS_ENUM(NSInteger, SelectorResultType) {
   // NOTE: All default options are assumed to be set in JS code
   _options = [command.arguments objectAtIndex:0];
   _items = [_options objectForKey:@"displayItems"];
+  NSArray *items_full = [_options objectForKey:@"items"];
+
 
   UIView *view = [self createPickerView];
 
   NSArray *defaultItems = [_options objectForKey:@"defaultItems"];
   _itemsSelectedIndexes = [@{} mutableCopy];
 
+
+    
   for (int columnIndex = 0; columnIndex < _items.count; columnIndex++) {
     NSString *columnIndexString = [NSString stringWithFormat:@"%i", columnIndex];
     NSInteger initialValueIndex = 0;
-
+    
+    
     if (defaultItems) {
       NSString *value = [[defaultItems objectAtIndex:columnIndex] valueForKey:@"value"];
-      NSUInteger index = [[_items objectAtIndex:columnIndex] indexOfObject:value];
-      if (NSNotFound != index) {
-        initialValueIndex = index;
+      
+      NSArray *cur_items = [items_full objectAtIndex:columnIndex];
+        
+      for(int idx = 0; idx < cur_items.count; idx++){
+          
+          NSUInteger index = [[cur_items[idx] valueForKey:@"value"] indexOfObject:value];
+          
+          
+          if (NSNotFound != index) {
+              
+              initialValueIndex = index;
+          }
       }
+        
     }
     [_itemsSelectedIndexes setValue:@(initialValueIndex) forKey:columnIndexString];
     [_pickerView selectRow:initialValueIndex inComponent:columnIndex animated:NO];
