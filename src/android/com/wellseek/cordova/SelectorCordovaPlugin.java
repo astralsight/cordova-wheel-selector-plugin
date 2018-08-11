@@ -327,7 +327,7 @@ class SelectorTheme {
             //return android.R.style.Theme_DeviceDefault_Light_Dialog_Alert;
         //}
 
-       return android.R.style.Theme_DeviceDefault_Dialog_Alert;
+       return android.R.style.Theme_Material_Light_Dialog_Alert;
     }
 }
 
