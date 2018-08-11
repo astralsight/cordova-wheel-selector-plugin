@@ -315,19 +315,19 @@ class SelectorTheme {
     }
 
     public int getNumberPickerTextColor() {
-        if (themeColors.equalsIgnoreCase(SelectorCordovaPlugin.LIGHT_THEME)) {
+        //if (themeColors.equalsIgnoreCase(SelectorCordovaPlugin.LIGHT_THEME)) {
             return Color.BLACK;
-        }
+        //}
 
-        return Color.WHITE;
+        //return Color.WHITE;
     }
 
     public int getAlertBuilderTheme() {
-        if (themeColors.equalsIgnoreCase(SelectorCordovaPlugin.LIGHT_THEME)) {
+        //if (themeColors.equalsIgnoreCase(SelectorCordovaPlugin.LIGHT_THEME)) {
             return android.R.style.Theme_DeviceDefault_Light_Dialog_Alert;
-        }
+        //}
 
-        return android.R.style.Theme_DeviceDefault_Dialog_Alert;
+       // return android.R.style.Theme_DeviceDefault_Dialog_Alert;
     }
 }
 
