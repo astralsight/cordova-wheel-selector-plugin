@@ -316,10 +316,10 @@ class SelectorTheme {
 
     public int getNumberPickerTextColor() {
         //if (themeColors.equalsIgnoreCase(SelectorCordovaPlugin.LIGHT_THEME)) {
-            //return Color.BLACK;
+            return Color.BLACK;
         //}
 
-        return Color.WHITE;
+        //return Color.WHITE;
     }
 
     public int getAlertBuilderTheme() {
