@@ -69,16 +69,16 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
             String config = args.getString(0);
             Log.d(TAG, "Config options: " + config);
             final JSONArray items = options.getJSONArray(DISPLAY_ITEMS_KEY);
-            JSONObject tmpDefaultItemsMightNotBeSet = null;
+            JSONArray tmpDefaultItemsMightNotBeSet = null;
 
             try {
-                tmpDefaultItemsMightNotBeSet = options.getJSONObject(DEFAULT_SELECTED_ITEMS_KEY);
+                tmpDefaultItemsMightNotBeSet = options.getJSONArray(DEFAULT_SELECTED_ITEMS_KEY);
             }
             catch(JSONException je) {
                 tmpDefaultItemsMightNotBeSet = null;
             }
 
-            final JSONObject defaultSelectedItems = tmpDefaultItemsMightNotBeSet;
+            final JSONArray defaultSelectedItems = tmpDefaultItemsMightNotBeSet;
             final String displayKey = options.getString(DISPLAY_KEY);
             final String title = options.getString(TITLE_KEY);
             final String positiveButton = options.getString(POSITIVE_BUTTON_TEXT_KEY);
@@ -181,13 +181,15 @@ public class SelectorCordovaPlugin extends CordovaPlugin {
         return true;
     }
 
-    public static List<PickerView> getPickerViews(Activity activity, JSONArray items, JSONObject defaultSelectedValues) throws JSONException {
+    public static List<PickerView> getPickerViews(Activity activity, JSONArray items, JSONArray defaultSelectedValues) throws JSONException {
         List<PickerView> views = new ArrayList<PickerView>();
         for (int i = 0; i < items.length(); ++i) {
+
             if(defaultSelectedValues != null && defaultSelectedValues.length() == items.length()){
 
                 try {
-                    String defaultSelctedValue = defaultSelectedValues.getString(Integer.toString(i));
+                    String defaultSelctedValue  = defaultSelectedValues.getJSONObject(i).getString("text");
+
                     views.add(new PickerView(activity, items.getJSONArray(i), defaultSelctedValue));
                 }catch(JSONException je) {
                     views.add(new PickerView(activity, items.getJSONArray(i), ""));
@@ -268,6 +270,8 @@ class PickerView {
             picker.setMaxValue(dataToShow.length - 1);
 
             int index = -1;
+
+            Log.d("an_id", dataToShow[0]);
 
             if(defaultSelectedItemValue != null && defaultSelectedItemValue.length() > 0)
                 index = Arrays.asList(dataToShow).indexOf(defaultSelectedItemValue);
